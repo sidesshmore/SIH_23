@@ -29,17 +29,6 @@ class Doctor(models.Model):
     def __str__(self):
         return self.doctor_name
 
-
-class Slot(models.Model):
-    start_time = models.TimeField()
-    end_time = models.TimeField()
-    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
-    status = models.BooleanField(default=True)  # True for free, False for booked
-
-    def __str__(self):
-        return f'{self.start_time} - {self.end_time}'
-
 class Patient(models.Model):
     uid = models.CharField(primary_key=True, max_length=12)
     name = models.CharField(max_length=100)
@@ -55,6 +44,19 @@ class Patient(models.Model):
 
     def __str__(self):
         return self.name
+
+class Slot(models.Model):
+    start_time = models.TimeField()
+    end_time = models.TimeField()
+    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
+    status = models.BooleanField(default=True)  # True for free, False for booked
+    patient = models.ForeignKey(Patient, on_delete=models.SET_NULL, null=True, blank=True)  # Link to Patient
+
+    def __str__(self):
+        return f'{self.start_time} - {self.end_time}'
+
+
 
 class Attendance(models.Model):
     entry_time = models.DateTimeField()
