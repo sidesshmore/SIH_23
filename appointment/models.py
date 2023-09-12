@@ -24,6 +24,7 @@ class Doctor(models.Model):
     phone = models.CharField(max_length=15)
     hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE)
     categories = models.ManyToManyField(Category)
+    password = models.CharField(max_length=128, null=True)  
 
     def __str__(self):
         return self.doctor_name
