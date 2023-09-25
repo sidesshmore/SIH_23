@@ -45,6 +45,8 @@ class Patient(models.Model):
     def __str__(self):
         return self.name
 
+
+
 class Slot(models.Model):
     start_time = models.TimeField()
     end_time = models.TimeField()
@@ -58,10 +60,13 @@ class Slot(models.Model):
 
 
 
+
+
 class Attendance(models.Model):
     entry_time = models.DateTimeField()
     exit_time = models.DateTimeField()
     doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
+    present = models.BooleanField(default=False) 
 
     def __str__(self):
         return f'{self.doctor} ({self.entry_time} - {self.exit_time})'
