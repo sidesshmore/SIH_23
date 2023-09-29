@@ -32,3 +32,16 @@ class AttendanceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Attendance
         fields = '__all__'
+
+from rest_framework import serializers
+from .models import PatientAllocation, PatientCategoryPreference
+
+class PatientAllocationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PatientAllocation
+        fields = '__all__'
+
+class PatientCategoryPreferenceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PatientCategoryPreference
+        fields = '__all__'

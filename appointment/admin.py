@@ -24,13 +24,13 @@ class PatientAdmin(admin.ModelAdmin):
     list_display = ('uid', 'name', 'dob', 'email', 'phone', 'gender')
     list_display_links = ['uid']
 
-class AttendanceAdmin(admin.ModelAdmin):
-    list_display = ('entry_time', 'exit_time', 'doctor')
-    list_display_links = ['entry_time', 'exit_time']
+# class AttendanceAdmin(admin.ModelAdmin):
+#     list_display = ('doctor')
+#     # list_display_links = ['entry_time', 'exit_time']
 
 admin.site.register(Hospital, HospitalAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Doctor, DoctorAdmin)
 admin.site.register(Slot, SlotAdmin)
 admin.site.register(Patient, PatientAdmin)
-admin.site.register(Attendance, AttendanceAdmin)
+admin.site.register(Attendance)

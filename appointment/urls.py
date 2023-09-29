@@ -13,5 +13,8 @@ urlpatterns = [
     path('hospital/<str:hospital_id>/', views.HospitalDetailView.as_view(), name='hospital-detail'),
     path('hospital/<str:hospital_id>/category/<int:pk>/', views.CategoryDetailView.as_view(), name='category-detail'),
     path('hospital/<str:hospital_id>/category/<int:category_id>/doctor/<str:doctor_id>/slots/', views.doctor_slots, name='doctor-slots'),
+    path('doctor_app/<str:doctor_id>/', views.get_doctor_appointments, name='get_doctor_appointments'),
+    path('allocate_doctor/', views.allocate_doctor_and_update_waitlist, name='allocate_doctor'),
+    path('remove_patient/', views.remove_patient_by_name, name='remove_patient_by_name'),
 ]
 

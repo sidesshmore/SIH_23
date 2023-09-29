@@ -25,6 +25,8 @@ class Doctor(models.Model):
     hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE)
     categories = models.ManyToManyField(Category)
     password = models.CharField(max_length=128, null=True, default= '12345')  
+    present = models.BooleanField(default=True)
+    waitlist_count = models.IntegerField(default=0)
 
     def __str__(self):
         return self.doctor_name
@@ -54,6 +56,7 @@ class Slot(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
     status = models.BooleanField(default=True)  # True for free, False for booked
     patient = models.ForeignKey(Patient, on_delete=models.SET_NULL, null=True, blank=True)  # Link to Patient
+    status = models.CharField(max_length=20, default='Available')  # Status of the slot: Available/Booked
 
     def __str__(self):
         return f'{self.start_time} - {self.end_time}'
@@ -63,8 +66,8 @@ class Slot(models.Model):
 
 
 class Attendance(models.Model):
-    entry_time = models.DateTimeField()
-    exit_time = models.DateTimeField()
+    # entry_time = models.DateTimeField()
+    # exit_time = models.DateTimeField()
     doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
     present = models.BooleanField(default=False) 
 
@@ -72,3 +75,18 @@ class Attendance(models.Model):
         return f'{self.doctor} ({self.entry_time} - {self.exit_time})'
 
 
+class PatientAllocation(models.Model):
+    doctor_id = models.CharField(max_length=9)
+    patient_name = models.CharField(max_length=100)
+    attended = models.CharField(max_length=50)
+    category_id = models.IntegerField()
+
+    def __str__(self):
+        return f'{self.patient_name} allocated to {self.doctor_id}'
+
+class PatientCategoryPreference(models.Model):
+    patient_name = models.CharField(max_length=100)
+    category_id = models.IntegerField()
+
+    def __str__(self):
+        return f'{self.patient_name} prefers category {self.category_id}'
